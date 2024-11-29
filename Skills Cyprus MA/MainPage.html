@@ -1,0 +1,49 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account</title>
+  </head>
+  <body>
+    <div>
+      <span id="rp-name"></span>
+      <span id="rp-category"><img src="" /></span>
+      <span id="rp-area"></span>
+      <ul id="rp-instructions"></ul>
+    </div>
+    <script>
+      async function getRecipe(recipeName) {
+        let recipeResponse = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata`
+        );
+        let recipe = await recipeResponse.json();
+
+        console.log(recipe);
+
+        console.log(recipe.name);
+
+        document.getElementById("rp-name").innerText = recipe.name;
+
+        console.log(recipe.category);
+        document.getElementById("rp-category").innerText = recipe.category;
+
+        console.log(recipe.area);
+        document.getElementById("rp-area").innerText = area;
+        let recipe_instructions = recipe.instructions;
+
+        const ulElement = document.getElementById("rp-instructions");
+        let tmpEl;
+        for (instructions of recipe_instructions) {
+          console.log(instructions.instructions.name);
+
+          tmpEl = document.createElement("li");
+
+          tmpEl.innerText = instructions.instructions.name;
+
+          ulElement.appendChild(tmpEl);
+        }
+      }
+      getRecipe("Arrabiata");
+    </script>
+  </body>
+</html>

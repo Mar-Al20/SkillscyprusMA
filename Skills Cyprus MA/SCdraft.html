@@ -1,0 +1,114 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <span id="rp-name"></span>
+      <span id="rp-category"><img src="" /></span>
+      <span id="rp-area"></span>
+      <ul id="rp-instructions"></ul>
+    </div>
+    <div>
+      <span id="pk-name"></span>
+      <img id="pk-img" src="" />
+      <span id="pk-height"><img src="" /></span>
+      <span id="pk-weight"></span>
+      <ul id="pk-abilities"></ul>
+    </div>
+
+    <div class="card-body">
+      <div class="d-flex flex-start align-items-center">
+        <img
+          class="rounded-circle shadow-1-strong me-3"
+          src="SC assest/profileimage.jpg"
+          alt="avatar"
+          width="60"
+          height="60"
+        />
+        <div>
+          <h6 class="fw-bold text-primary mb-1">Lily Coleman</h6>
+          <p class="text-muted small mb-0">Shared publicly - Sep 2024</p>
+        </div>
+      </div>
+
+      <p class="mt-3 mb-4 pb-2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+        consequat.
+      </p>
+    </div>
+
+    <script>
+      async function getRecipe(recipeName) {
+        let recipeResponse = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata`
+        );
+        let recipe = {
+          name: "Arrabiata",
+        };
+      }
+      getRecipe("Arrabiata");
+    </script>
+    <script>
+      //using an asynchronus function to fetch a specific pockemon
+      //data form an API and added in a Variable with name pokemon
+      //as a JSON format
+      async function getPokemon(pokemonName) {
+        // let pokemonName = "pikachu";
+        let pokemonResponse = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?s=Chicken%20Enchilada%20Casserole`
+        );
+        let pokemon = await pokemonResponse.json();
+
+        console.log(pokemon);
+
+        console.log(pokemon.name);
+
+        //from the JSON file we are getting the name and we are adding it to the HTML
+        document.getElementById("pk-name").innerText = pokemon.name;
+
+        console.log(pokemon.sprites.front_default);
+        //from the JSON file we are getting the URL img and we are adding it to the HTML
+        document.getElementById("pk-img").src = pokemon.sprites.front_default;
+
+        console.log(pokemon.height);
+        document.getElementById("pk-height").innerText = pokemon.height;
+
+        console.log(pokemon.weight);
+        document.getElementById("pk-weight").innerText = pokemon.weight;
+
+        let pokemon_abilities = pokemon.abilities;
+        // let tmp = "";
+        // for (ability of pokemon_abilities) {
+        //   console.log(ability.ability.name);
+        //   tmp += `<li>${ability.ability.name}</li>`;
+        // }
+        // console.log(tmp);
+        // document.getElementById("pk-abilities").innerHTML = tmp;
+
+        //from the JSON file we are getting the abilities with a FOR loop and adding them to the HTML
+        const ulElement = document.getElementById("pk-abilities");
+        let tmpEl;
+        for (ability of pokemon_abilities) {
+          console.log(ability.ability.name);
+          //creatting an element li to add the info in it
+          tmpEl = document.createElement("li");
+          //adding the info to the element
+          tmpEl.innerText = ability.ability.name;
+          //   console.log(tmpEl);
+          //add li element as a child of the HTML element ul with id pk-abilities
+          ulElement.appendChild(tmpEl);
+        }
+
+        // document.getElementById("pk-abilities").innerHTML = tmp;
+      }
+
+      //calling function
+      getPokemon("chansey");
+    </script>
+  </body>
+</html>
